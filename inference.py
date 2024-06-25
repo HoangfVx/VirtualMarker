@@ -25,12 +25,12 @@ from virtualmarker.utils.coord_utils import pixel2cam
 import virtualmarker.models as models
 
 # detection module
-from VirtualPose.virtualpose.core.config import config as det_cfg
-from VirtualPose.virtualpose.core.config import update_config as det_update_config
-from VirtualPose.virtualpose.utils.transforms import inverse_affine_transform_pts_cuda
-from VirtualPose.virtualpose.utils.utils import load_backbone_validate
-import VirtualPose.virtualpose.models as det_models
-import VirtualPose.virtualpose.dataset as det_dataset
+from virtualpose.core.config import config as det_cfg
+from virtualpose.core.config import update_config as det_update_config
+from virtualpose.utils.transforms import inverse_affine_transform_pts_cuda
+from virtualpose.utils.utils import load_backbone_validate
+import virtualpose.models as det_models
+import virtualpose.dataset as det_dataset
 
 
 def parse_args():
@@ -189,7 +189,7 @@ def output2original_scale(meta, output, vis=False):
         if args.input_type == "image":
             frame_id = 0
         else:
-            frame_id = int(img_path.split('\\')[-1][:-4])-1
+            frame_id = int(img_path.split('/')[-1][:-4])-1
         trans = trans_batch[i].to(bbox_batch[i].device).float()
 
         n_person = 0
@@ -279,7 +279,7 @@ def video_to_images(vid_file, img_folder=None):
                '-r', str(fps),
                '-f', 'image2',
                '-v', 'error',
-               f'{img_folder}/%06d.jpg']
+               f'{img_folder}/%06d.png']
     print(f'Running \"{" ".join(command)}\"')
     subprocess.call(command)
     print(f'Images saved to \"{img_folder}\"')
