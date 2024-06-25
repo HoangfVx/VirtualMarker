@@ -6,7 +6,9 @@ import matplotlib.pyplot as plt
 import matplotlib
 from termcolor import colored
 try:
-    os.environ["PYOPENGL_PLATFORM"] = "osmesa"
+    # os.environ["PYOPENGL_PLATFORM"] = "osmesa"
+    # For Google Colab environment, Using "egl" instead os "osmesa"
+    os.environ["PYOPENGL_PLATFORM"] = "egl"
     import pyrender
 except:
     print(colored('pyrender is not correctly imported.', 'red'))
